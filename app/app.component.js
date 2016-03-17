@@ -1,4 +1,5 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+///</// <reference path="./node_modules/angular2/core.d.ts" />
+System.register(['angular2/core', './hero'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,21 +11,35 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, hero_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (hero_1_1) {
+                hero_1 = hero_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.title = "Hero";
+                    this.heros = [
+                        new hero_1.Hero(1, 'Windstorm'),
+                        new hero_1.Hero(13, 'Bombasto'),
+                        new hero_1.Hero(15, 'Magneta'),
+                        new hero_1.Hero(20, 'Tornado')
+                    ];
+                    this.myHero = this.heros[0];
                 }
+                AppComponent.prototype.addHero = function (newHero) {
+                    this.heros.push(new hero_1.Hero(Math.random(), newHero));
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: '<h1>Hello from Angular2</h1>'
+                        template: "\n    <h4>Hello from Angular2</h4>\n    <h5>{{title}}</h5>\n    <h6>My hero is {{myHero.name}}</h6>\n    <p>Add new hero</p>\n    <input #newHero\n     (keyup.enter)=\"addHero(newHero.value)\"\n     (blur) =\"addHero(newHero.value);newHero.value='' \"\n     >\n     <button (click)=addHero(newHero.value)>Add</button>     \n    <p> Heros: </p>\n    <ul>\n    <li *ngFor=\"#hero of heros\">\n       {{hero.name}}\n    </li>\n    </ul>\n        "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
